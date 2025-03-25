@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ResolveXApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ResolveXApplication.class, args);
 	}
 
