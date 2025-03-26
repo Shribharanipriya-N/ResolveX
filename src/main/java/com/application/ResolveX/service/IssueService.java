@@ -55,11 +55,31 @@ public class IssueService {
     }
 
 
-    public IssueEntity deleteIssue(Integer issueId) {
+    public IssueEntity deleteIssue(Integer issueId,Integer id) {
+        IssueEntity issue = issueRepository.findByIssueId(issueId);
 
-        IssueEntity issue=issueRepository.findByIssueId(issueId);
-        if(issue!=null)
+        if (issue == null) {
+            throw new RuntimeException("Issue Not Found");
+        }
+
+        boolean valid=id.equals(issue.getAssignedBy());
+        if(valid) {
+            issueRepository.deleteById(issueId);
             return issue;
-        throw new RuntimeException("Issue Not Found");
+        }
+        else throw new RuntimeException("Can't Delete");
     }
+
+    public IssueEntity updateIssueStatus(Integer issueId,Integer id){
+        IssueEntity ExistingIssue=issueRepository.findByIssueId(issueId);
+        if(ExistingIssue==null) throw new RuntimeException("No Issue Found");
+        boolean isValid=id.equals(ExistingIssue.getAssignedTo());
+        if(isValid){
+                ExistingIssue.setStatus(true);
+                issueRepository.save(ExistingIssue);
+                return ExistingIssue;
+        }
+        throw new RuntimeException("Cant Update");
+    }
+
 }
