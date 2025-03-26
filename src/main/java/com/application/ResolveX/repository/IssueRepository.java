@@ -12,4 +12,6 @@ public interface IssueRepository extends JpaRepository<IssueEntity,Integer> {
     List<IssueEntity> findByAssignedTo(Integer userId);
 
     List<IssueEntity> findByAssignedBy(Integer userId);
+
+    IssueEntity findByIssueId(Integer issueId);
 }
