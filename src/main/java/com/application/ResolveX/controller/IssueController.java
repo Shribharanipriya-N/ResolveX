@@ -18,52 +18,59 @@ public class IssueController {
     IssueService issueService;
 
     @PostMapping("/issue")
-    public ResponseEntity<?> createIssue(@RequestBody IssueEntity issueEntity){
-         IssueEntity issue=issueService.createIssue(issueEntity.getAssignedTo(),issueEntity.getAssignedBy(),issueEntity.getDescription(),issueEntity.getIssueName());
-         return ResponseEntity.status(HttpStatus.OK).body(issue);
+    public ResponseEntity<?> createIssue(@RequestBody IssueEntity issueEntity) {
+        IssueEntity issue = issueService.createIssue(issueEntity.getAssignedTo(), issueEntity.getAssignedBy(), issueEntity.getDescription(), issueEntity.getIssueName());
+        return ResponseEntity.status(HttpStatus.OK).body(issue);
     }
 
     @GetMapping("/issues")
-    public ResponseEntity<?> getAllIssues(){
-        try{
-            List<IssueEntity> issues=issueService.getAllIssues();
+    public ResponseEntity<?> getAllIssues() {
+        try {
+            List<IssueEntity> issues = issueService.getAllIssues();
             return ResponseEntity.status(HttpStatus.OK).body(issues);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @GetMapping("/issueToMe/{userId}")
-    public ResponseEntity<?> getAllIssuesOfUser(@PathVariable Integer userId){
-        try{
-            List<IssueEntity> issues=issueService.getIssuesOfUser(userId);
+    public ResponseEntity<?> getAllIssuesOfUser(@PathVariable Integer userId) {
+        try {
+            List<IssueEntity> issues = issueService.getIssuesOfUser(userId);
             return ResponseEntity.status(HttpStatus.OK).body(issues);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @GetMapping("/issueByMe/{userId}")
-    public ResponseEntity<?> getUserCreatedIssues(@PathVariable Integer userId){
-        try{
-            List<IssueEntity> issues=issueService.getUserCreatedIssues(userId);
+    public ResponseEntity<?> getUserCreatedIssues(@PathVariable Integer userId) {
+        try {
+            List<IssueEntity> issues = issueService.getUserCreatedIssues(userId);
             return ResponseEntity.status(HttpStatus.OK).body(issues);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @DeleteMapping("issue/{id}")
-    public ResponseEntity<?> deleteIssue(@PathVariable Integer issueId){
-        try{
-            IssueEntity issue=issueService.deleteIssue(issueId);
+    public ResponseEntity<?> deleteIssue(@PathVariable("id") Integer issueId, @RequestParam Integer id) {
+        try {
+            IssueEntity issue = issueService.deleteIssue(issueId, id);
             return ResponseEntity.status(HttpStatus.OK).body(issue);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
- }
+
+
+    @PutMapping("issue/{id}")
+    public ResponseEntity<?> updateIssueStatus(@PathVariable("id") Integer issueId, @RequestParam Integer id) {
+        try {
+            IssueEntity issue = issueService.updateIssueStatus(issueId, id);
+            return ResponseEntity.status(HttpStatus.OK).body(issue);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+}
