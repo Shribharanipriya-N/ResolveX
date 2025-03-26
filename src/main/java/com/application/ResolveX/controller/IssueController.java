@@ -55,4 +55,15 @@ public class IssueController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-}
+
+    @DeleteMapping("issue/{id}")
+    public ResponseEntity<?> deleteIssue(@PathVariable Integer issueId){
+        try{
+            IssueEntity issue=issueService.deleteIssue(issueId);
+            return ResponseEntity.status(HttpStatus.OK).body(issue);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+ }

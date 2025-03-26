@@ -55,4 +55,11 @@ public class IssueService {
     }
 
 
+    public IssueEntity deleteIssue(Integer issueId) {
+
+        IssueEntity issue=issueRepository.findByIssueId(issueId);
+        if(issue!=null)
+            return issue;
+        throw new RuntimeException("Issue Not Found");
+    }
 }
