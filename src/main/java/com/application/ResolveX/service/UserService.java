@@ -2,7 +2,6 @@ package com.application.ResolveX.service;
 
 import com.application.ResolveX.entity.UserEntity;
 import com.application.ResolveX.repository.UserRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +35,9 @@ public class UserService {
             return user.get();
         }
         throw new RuntimeException("User Not Found");
+    }
+
+    public Optional<UserEntity> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

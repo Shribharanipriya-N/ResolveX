@@ -39,6 +39,21 @@ public class UserController {
         newUser.setPassword(password);
         return userRepository.save(newUser);
     }
+    @GetMapping("/user/id")
+    public ResponseEntity<?> getUserId(@RequestHeader("email") String email) {
+        try {
+            Optional<UserEntity> user = userService.getUserByEmail(email);
+            System.out.println(user);
+            if (user.isPresent()) {
+                System.out.println(user.get().getUserId());
+                return ResponseEntity.ok(user.get().getUserId());
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
 
     @GetMapping("/user")
     public ResponseEntity<?> getUserDetails(@RequestHeader Integer id){
