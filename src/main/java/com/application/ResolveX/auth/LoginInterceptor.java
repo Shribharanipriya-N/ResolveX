@@ -19,17 +19,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public  boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws IOException {
-        String path = req.getRequestURI();
 
-        // Allow both GET & POST for /issue/starred
-        if (path.equals("/issue/starred")) {
+        if (req.getMethod().equalsIgnoreCase("OPTIONS")) {
+            res.setStatus(HttpServletResponse.SC_OK);
             return true;
         }
-
         System.out.println("Prehandle called");
+        System.out.println(req);
         String token=req.getHeader("Authorization");
         String email=req.getHeader("email");
-
+        System.out.println(token+email);
         if(token==null  ||  email ==null || !tokenService.isValidToken(email,token)){
             res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             res.getWriter().write("Missing or Invalid Token");

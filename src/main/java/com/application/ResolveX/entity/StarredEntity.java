@@ -10,6 +10,7 @@ public class StarredEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer starredId;
+
     @ManyToOne
     @JoinColumn(name = "UserEntity" ,referencedColumnName = "userId")
     private UserEntity user;

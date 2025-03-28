@@ -15,10 +15,11 @@ public class CommentEntity {
 
     @ManyToOne
     @JoinColumn(name = "IssueEntity",referencedColumnName ="issueId" )
-    private IssueEntity issueId;
+    private IssueEntity issue;
+
     @ManyToOne
     @JoinColumn(name = "UserEntity",referencedColumnName = "userId")
-    private UserEntity userId;
+    private UserEntity user;
     private String content;
     private Date commentedAt;
 

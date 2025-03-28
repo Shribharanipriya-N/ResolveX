@@ -76,6 +76,8 @@ public class IssueService {
         boolean isValid=id.equals(ExistingIssue.getAssignedTo());
         if(isValid){
                 ExistingIssue.setStatus(true);
+            LocalDate currentDate = LocalDate.now();
+                ExistingIssue.setResolvedAt(currentDate);
                 issueRepository.save(ExistingIssue);
                 return ExistingIssue;
         }
