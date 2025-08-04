@@ -31,10 +31,13 @@ public class AuthController {
     @PostMapping("/login")
 
     public ResponseEntity<?>  login (@RequestHeader String email,@RequestHeader String password){
+        System.out.println(email +"  "+password);
 
         boolean isValid=userService.checkCredentialInDatabase(email,password);
         if(isValid){
             String token=tokenService.generateToken(email);
+            System.out.println(token);
+
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(new AuthResponse(email, token));
         }
 

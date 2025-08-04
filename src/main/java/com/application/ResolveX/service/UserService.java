@@ -26,6 +26,7 @@ public class UserService {
         newUser.setEmail(email);
         newUser.setPassword(password);
         newUser.setName(name);
+        System.out.print(newUser);
         return userRepository.save(newUser);
     }
 

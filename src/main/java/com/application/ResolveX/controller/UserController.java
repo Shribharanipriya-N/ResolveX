@@ -35,6 +35,7 @@ public class UserController {
             return null;
         }
         UserEntity newUser = new UserEntity();
+        newUser.setName(name);
         newUser.setEmail(email);
         newUser.setPassword(password);
         return userRepository.save(newUser);
