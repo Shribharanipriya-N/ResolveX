@@ -84,4 +84,13 @@ public class IssueService {
         throw new RuntimeException("Cant Update");
     }
 
+    public IssueEntity getIssue(Integer issueId) {
+        IssueEntity issue = issueRepository.findByIssueId(issueId);
+
+        if (issue == null) {
+            throw new RuntimeException("Issue Not Found");
+        }
+        else
+            return issue;
+    }
 }

@@ -1,6 +1,8 @@
 package com.application.ResolveX.dto;
 
 public class AuthResponse {
+    private String email;
+    private String token;
 
     public String getEmail() {
         return email;
@@ -10,8 +12,7 @@ public class AuthResponse {
         this.email = email;
     }
 
-    private String email;
-    private String token;
+
 
     public AuthResponse() {
     }
