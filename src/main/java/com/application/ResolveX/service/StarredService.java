@@ -28,6 +28,7 @@ public class StarredService {
    @Autowired
    UserService userService;
     public List<StarredEntity> getStarredIssue(Integer id) {
+
         UserEntity user=userService.getUserDetails(id);
         List<StarredEntity> list= starredRepository.findByUser(user);
         if(!list.isEmpty()){
@@ -49,11 +50,11 @@ public class StarredService {
         return starredRepository.save(starredEntity1);
     }
 
-    public StarredEntity deleteStarredIssue(Integer id) {
+    public StarredEntity deleteStarredIssue(Integer userId,Integer issueId) {
 
-        Optional<StarredEntity> starredEntity=starredRepository.findById(id);
-        if(starredEntity.isPresent()){
-            starredRepository.deleteById(id);
+        Optional<StarredEntity> starredEntity = starredRepository.findByIssue_IssueIdAndUser_UserId(issueId, userId);
+        if (starredEntity.isPresent()) {
+            starredRepository.deleteById(starredEntity.get().getStarredId());
             return starredEntity.get();
         }
         throw new RuntimeException("Not Starred");
