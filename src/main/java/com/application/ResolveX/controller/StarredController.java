@@ -20,6 +20,7 @@ public class StarredController {
 
     @GetMapping("/issue/starred")
     public ResponseEntity<?> getStarredIssue(@RequestParam Integer id){
+        System.out.println(id);
         try{
             List<StarredEntity> starredIssue= starredService.getStarredIssue(id);
             return ResponseEntity.status(HttpStatus.OK).body(starredIssue);
@@ -34,10 +35,11 @@ public class StarredController {
         return ResponseEntity.status(HttpStatus.OK).body(starredService.addStarredIssue(starredEntity));
     }
 
-    @DeleteMapping("/issue/starred/{id}")
-    public ResponseEntity<?> deleteStarredIssue(@PathVariable Integer id){
+    @DeleteMapping("/issue/starred")
+    public ResponseEntity<?> deleteStarredIssue(@RequestParam("userId") Integer userId,@RequestParam("issueId") Integer issueId){
+        System.out.println(userId+"  "+issueId);
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(starredService.deleteStarredIssue(id));
+            return ResponseEntity.status(HttpStatus.OK).body(starredService.deleteStarredIssue(userId,issueId));
         }
         catch (Exception e){
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

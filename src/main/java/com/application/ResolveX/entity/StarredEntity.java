@@ -15,6 +15,10 @@ public class StarredEntity {
     @JoinColumn(name = "UserEntity" ,referencedColumnName = "userId")
     private UserEntity user;
 
+    @ManyToOne
+    @JoinColumn(name = "IssueEntity", referencedColumnName = "issueId")
+    private IssueEntity issue;
+
     public IssueEntity getIssue() {
         return issue;
     }
@@ -39,9 +43,7 @@ public class StarredEntity {
         this.starredId = starredId;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IssueEntity", referencedColumnName = "issueId")
-    private IssueEntity issue;
+
 
 
     public StarredEntity(Integer starredId, UserEntity user, IssueEntity issue) {
